@@ -29,7 +29,10 @@ export const fetchPlugin = (inputCode: string) => {
 
       build.onLoad({ filter: /.css$/ }, async (args: any) => {
         const { data, request } = await axios.get(args.path);
-        const escaped = CSS.escape(data); 
+        const escaped = data
+          .replace(/\n/g, '')
+          .replace(/"/g, '\\"')
+          .replace(/'/g, "\\'");
         const contents = `
           const style = document.createElement('style');
           style.innerText = '${escaped}';
