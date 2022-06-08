@@ -1,22 +1,21 @@
-import "bulmaswatch/superhero/bulmaswatch.min.css";
-import * as esbuild from "esbuild-wasm";
-import { useState, useEffect, useRef } from "react";
-import ReactDOM from "react-dom/client";
-import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
-import { fetchPlugin } from "./plugins/fetch-plugin";
-import CodeEditor from "./components/code-editor";
+import 'bulmaswatch/superhero/bulmaswatch.min.css';
+import * as esbuild from 'esbuild-wasm';
+import { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
+import { fetchPlugin } from './plugins/fetch-plugin';
+import CodeEditor from './components/code-editor';
 
 const App = () => {
-  const ref = useRef<boolean>();
+  const ref = useRef<any>();
   const iframe = useRef<any>();
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
 
   const startService = async () => {
-    await esbuild.initialize({
+    ref.current = await esbuild.startService({
       worker: true,
-      wasmURL: "./node_modules/esbuild-wasm/esbuild.wasm",
+      wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm',
     });
-    ref.current = true;
   };
   useEffect(() => {
     startService();
@@ -27,18 +26,21 @@ const App = () => {
       return;
     }
 
-    const result = await esbuild.build({
-      entryPoints: ["index.js"],
+    iframe.current.srcdoc = html;
+
+    const result = await ref.current.build({
+      entryPoints: ['index.js'],
       bundle: true,
       write: false,
       plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: {
-        "process.env.NODE_ENV": '"production"',
-        global: "window",
+        'process.env.NODE_ENV': '"production"',
+        global: 'window',
       },
     });
 
-    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, "*");
+    // setCode(result.outputFiles[0].text);
+    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
   };
 
   const html = `
@@ -65,7 +67,7 @@ const App = () => {
     <div>
       <CodeEditor
         initialValue="const a = 1;"
-        setInputonChange={(value) => setInput(value)}
+        onChange={(value) => setInput(value)}
       />
       <textarea
         value={input}
@@ -74,12 +76,9 @@ const App = () => {
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      <iframe ref={iframe} sandbox="allow-scripts" srcDoc={html} />
+      <iframe title='preview' ref={iframe} sandbox="allow-scripts" srcDoc={html} />
     </div>
   );
 };
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-root.render(<App />);
+ReactDOM.render(<App />, document.querySelector('#root'));
