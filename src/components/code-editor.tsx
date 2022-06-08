@@ -1,3 +1,4 @@
+import './code-editor.css';
 import MonacoEditor, { OnChange, OnMount } from "@monaco-editor/react";
 import { editor } from "monaco-editor/esm/vs/editor/editor.api";
 import { useRef } from "react";
@@ -36,8 +37,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   return (
-    <div>
-      <button onClick={onFormatClick}>Format</button>
+    <div className='editor-wrapper'>
+      <button className="button button-format is-primary is-small" onClick={onFormatClick}>Format</button>
       <MonacoEditor
         language="javascript"
         onChange={onChange}
