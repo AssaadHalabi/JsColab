@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import CodeEditor from './code-editor';
 import Preview from './preview';
 import bundle from '../bundler';
@@ -30,7 +29,13 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
   return (
     <Resizable direction="vertical">
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
+      <div
+        style={{
+          height: 'calc(100% - 10px)',
+          display: 'flex',
+          flexDirection: 'row',
+        }}
+      >
         <Resizable direction="horizontal">
           <CodeEditor
             initialValue={cell.content}
