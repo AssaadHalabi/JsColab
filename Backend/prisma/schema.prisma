@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cells {
+  id          Int    @id @default(autoincrement())
+  notebook_id Int
+  type        String @db.VarChar(255)
+  content     String
+  uuid        String @db.Uuid
+}
+
+model Notebook {
+  id          String    @id(map: "Notebooks_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  User_id     Int
+  cells       Json[]    @db.Json
+  name        String?   @db.VarChar(255)
+  created     DateTime? @db.Date
+  owner_email String?   @db.VarChar(255)
+  User        User      @relation(fields: [User_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "notebooks_user_id_foreign")
+}
+
+model User {
+  id       Int        @id(map: "Users_pkey") @default(autoincrement())
+  Email    String     @unique @db.VarChar(255)
+  Notebook Notebook[]
+}
