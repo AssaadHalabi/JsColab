@@ -41,7 +41,6 @@ export const NotebookPage: React.FC = () => {
   return (
     <div>
       <Navbar />
-      
       <Snackbar
         anchorOrigin={{ vertical:'top' , horizontal:"center" }}
         onClick={handleClick}
@@ -59,7 +58,7 @@ export const NotebookPage: React.FC = () => {
     fontFamily: "sans-serif",
     color: "rgb(206, 17, 38)",
     position:'absolute',
-    left: `${window.screen.width * 0.4}px`,
+    left: `${window.screen.width * 0.35}px`,
     top: `${window.screen.height * 0.4}px`,
     whiteSpace: "pre-wrap",
     flex: "0 0 auto",

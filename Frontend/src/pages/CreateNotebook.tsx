@@ -16,7 +16,6 @@ export const CreateNotebook: React.FC = () => {
   const navigate = useNavigate();
 
   const SaveEmptyNotebook = async () => {
-
     if (!user || !user.email) {
       return;
     }
@@ -30,8 +29,8 @@ export const CreateNotebook: React.FC = () => {
         `${process.env.REACT_APP_API_URL}/createNotebook`,
         payload
       );
-      const notebook:Notebook = data;
-      
+      const notebook: Notebook = data;
+
       localStorage.setItem(`notebook_${notebook.id}`, JSON.stringify(notebook));
       navigate(`/notebook/${notebook.id}`);
     } catch (error: any) {
@@ -46,65 +45,37 @@ export const CreateNotebook: React.FC = () => {
 
   return (
     <>
-    <Navbar />
-
-
-    <Modal
+      <Navbar />
+      <Modal
         openModal={openModal}
         setopenModal={setopenModal}
         title={"Create JSColab Notebook"}
         footerContent={
           <>
             <button className="button is-success" onClick={SaveEmptyNotebook}>
-        Save Changes
-      </button>
-      <a
-        className="button"
-        href={user ? `/notebooks` : `/login`}
-      >
-        Cancel
-      </a>
+              Save Changes
+            </button>
+            <a className="button" href={user ? `/notebooks` : `/login`}>
+              Cancel
+            </a>
           </>
         }
       >
-<div className="field">
-        <label className="label">Notebook Name</label>
-        <div className="control">
-          <input
-            className="input"
-            type="text"
-            placeholder="My website prototype.."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+        <div className="field">
+          <label className="label">Notebook Name</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="My website prototype.."
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
         </div>
-      </div>
-
       </Modal>
 
-<div className="modal is-active">
-  <div className="modal-background" />
-  <div className="modal-card">
-    <header className="modal-card-head">
-      <p className="modal-card-title"></p>
-      <button className="delete" aria-label="close" />
-    </header>
-    <section className="modal-card-body">
-      
-    </section>
-    <footer className="modal-card-foot">
-      <button className="button is-success" onClick={SaveEmptyNotebook}>
-        Save Changes
-      </button>
-      <a
-        className="button"
-        href={user ? `/notebooks` : `/login`}
-      >
-        Cancel
-      </a>
-    </footer>
-  </div>
-</div>
+    
     </>
   );
 };
