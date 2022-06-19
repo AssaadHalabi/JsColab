@@ -1,8 +1,9 @@
-import { Dispatch } from 'redux';
-import { Action } from '../actions';
-import { ActionType } from '../action-types';
-import { saveCells } from '../action-creators';
-import { RootState } from '../reducers';
+import { Dispatch } from "redux";
+import { Action } from "../actions";
+import { ActionType } from "../action-types";
+import { saveCells } from "../action-creators";
+import { RootState } from "../reducers";
+import { fetchNotebookFromLocalStorage } from "../../hooks/fetchNotebook";
 
 export const persistMiddleware = ({
   dispatch,
@@ -12,9 +13,6 @@ export const persistMiddleware = ({
   getState: () => RootState;
 }) => {
   let timer: any;
-  let notebook_id = localStorage.getItem("notebook_id") || '';
-  console.log("persistMiddleware running");
-  
   return (next: (action: Action) => void) => {
     return (action: Action) => {
       next(action);
@@ -27,11 +25,20 @@ export const persistMiddleware = ({
           ActionType.DELETE_CELL,
         ].includes(action.type)
       ) {
+        const { user:{email} } = getState();
+  let notebook_id = localStorage.getItem("notebook_id") || "";
+  console.log(email);
+  
+  const isOwner =
+    email === fetchNotebookFromLocalStorage(notebook_id).owner_email;
+  console.log(`persistMiddleware running ${email && isOwner}`);
         if (timer) {
           clearTimeout(timer);
         }
         timer = setTimeout(() => {
-          saveCells(notebook_id)(dispatch, getState);
+          if (email && isOwner) {
+            saveCells(notebook_id)(dispatch, getState);
+          }
         }, 250);
       }
     };

@@ -14,11 +14,9 @@ import bundle from "../../bundler";
 import { RootState } from "../reducers";
 import {
   fetchNotebook,
-  useNotebookFromLocalStorage,
+  fetchNotebookFromLocalStorage,
 } from "../../hooks/fetchNotebook";
 import { Notebook } from "../notebook";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
 
 export const updateCell = (uuid: string, content: string): UpdateCellAction => {
   return {
@@ -87,10 +85,10 @@ export const createBundle = (cellUuid: string, input: string) => {
 export const fetchCells = (notebook_id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionType.FETCH_CELLS });
-    console.log('fetch');
-    
+    console.log("fetch");
+
     try {
-      let notebook: Notebook = useNotebookFromLocalStorage(notebook_id);
+      let notebook: Notebook = fetchNotebookFromLocalStorage(notebook_id);
       dispatch({
         type: ActionType.FETCH_CELLS_COMPLETE,
         payload: notebook.cells,
@@ -110,7 +108,7 @@ export const saveCells = (notebook_id: string) => {
       cells: { data, order },
     } = getState();
 
-    let notebook: Notebook = useNotebookFromLocalStorage(notebook_id);
+    let notebook: Notebook = fetchNotebookFromLocalStorage(notebook_id);
     const cells: Cell[] = order.map((uuid) => data[uuid]);
 
     notebook.cells = cells;
@@ -136,5 +134,21 @@ export const saveCells = (notebook_id: string) => {
         payload: err.message,
       });
     }
+  };
+};
+
+export const loginUser = (email: string) => {
+  return async (dispatch: Dispatch<Action>, getState: () => RootState) => {
+    dispatch({
+      type: ActionType.LOGIN_USER,
+      payload: email,
+    });
+  };
+};
+export const logoutUser = () => {
+  return async (dispatch: Dispatch<Action>, getState: () => RootState) => {
+    dispatch({
+      type: ActionType.LOGOUT_USER,
+    });
   };
 };

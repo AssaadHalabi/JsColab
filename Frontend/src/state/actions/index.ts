@@ -68,6 +68,14 @@ export interface SaveCellsErrorAction {
   payload: string;
 }
 
+export interface LOGINUSERACTION {
+  type: ActionType.LOGIN_USER;
+  payload: string;
+}
+export interface LOGOUTUSERACTION {
+  type: ActionType.LOGOUT_USER;
+}
+
 export type Action =
   | MoveCellAction
   | DeleteCellAction
@@ -78,4 +86,6 @@ export type Action =
   | FetchCellsAction
   | FetchCellsCompleteAction
   | FetchCellsErrorAction
-  | SaveCellsErrorAction;
+  | SaveCellsErrorAction
+  | LOGINUSERACTION
+  | LOGOUTUSERACTION;

@@ -4,8 +4,6 @@ import { useTypedSelector } from "../../hooks/use-typed-selector";
 import CellListItem from "./cell-list-item";
 import AddCell from "./add-cell";
 import { useActions } from "../../hooks/use-actions";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { Notebook } from "../../state/notebook";
 
@@ -18,6 +16,7 @@ const CellList: React.FC<CellListProps> = ({ notebook, user }) => {
   const cells = useTypedSelector(({ cells: { order, data } }) =>
     order.map((id) => data[id])
   );
+  const userEmail = useTypedSelector((state) => state.user.email);
   const { fetchCells } = useActions();
   const navigate = useNavigate();
   const errRef = useRef("");
@@ -29,6 +28,8 @@ const CellList: React.FC<CellListProps> = ({ notebook, user }) => {
     try {
       fetchCells(notebook.id);
       console.log('after fetch cells');
+      console.log(`cells ${JSON.stringify(cells)}`);
+      
     } catch (error: any) {
       errRef.current = error.message;
     }

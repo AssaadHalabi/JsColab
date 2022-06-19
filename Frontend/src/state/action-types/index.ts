@@ -9,4 +9,6 @@ export enum ActionType {
   FETCH_CELLS_COMPLETE = 'fetch_cells_complete',
   FETCH_CELLS_ERROR = 'fetch_cells_error',
   SAVE_CELLS_ERROR = 'save_cells_error',
+  LOGIN_USER = 'login_user',
+  LOGOUT_USER = 'logout_user',
 }
