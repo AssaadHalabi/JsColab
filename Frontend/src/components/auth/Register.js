@@ -8,11 +8,13 @@ import {
 } from "../../firebase";
 import "../../css/auth/Register.css";
 import axios from "axios";
+import { useActions } from "../../hooks/use-actions";
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const {loginUser} = useActions()
   const navigate = useNavigate();
   const register = async() => {
     if (!name) alert("Please enter name");
@@ -25,7 +27,9 @@ function Register() {
   };
   useEffect(() => {
     if (loading) return;
-    if (user) navigate("/dashboard");
+    if (user) {
+      loginUser(user.email);
+      navigate("/dashboard")};
     
   }, [user, loading]);
   return (
