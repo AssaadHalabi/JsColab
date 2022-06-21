@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { auth, signInWithGoogle } from "../../firebase";
-import axios from "axios";
+import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../css/auth/Login.css";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, signInWithGoogle } from "../../firebase";
 import { useActions } from "../../hooks/use-actions";
-import { useTypedSelector } from "../../hooks/use-typed-selector";
 import { Navbar } from "../Navbar";
 function Login() {
-  const userEmail = useTypedSelector((state) => state.user.email);
+  // const userEmail = useTypedSelector((state) => state.user.email);
   const { referrer } = useParams();
   const [user, loading, error] = useAuthState(auth);
   const { loginUser } = useActions();

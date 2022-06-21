@@ -1,5 +1,4 @@
 import "../../css/editors/action-bar.css";
-import { fetchNotebookFromLocalStorage } from "../../hooks/fetchNotebook";
 import { useActions } from "../../hooks/use-actions";
 import { Notebook } from "../../state/notebook";
 

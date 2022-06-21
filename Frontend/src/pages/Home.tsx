@@ -1,10 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
-import { auth } from "../firebase";
-import { Notebook } from "../state/notebook";
-import { getFeaturedNotebooks } from "../utils/getNotebooks";
 import "../css/pages/Home.css";
 
 export const Home = () => {

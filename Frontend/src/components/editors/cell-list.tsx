@@ -1,11 +1,10 @@
-import "../../css/editors/cell-list.css";
 import { Fragment, useEffect, useRef } from "react";
-import { useTypedSelector } from "../../hooks/use-typed-selector";
-import CellListItem from "./cell-list-item";
-import AddCell from "./add-cell";
+import "../../css/editors/cell-list.css";
 import { useActions } from "../../hooks/use-actions";
-import { useNavigate } from "react-router-dom";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
 import { Notebook } from "../../state/notebook";
+import AddCell from "./add-cell";
+import CellListItem from "./cell-list-item";
 
 interface CellListProps {
   notebook: Notebook;
@@ -16,9 +15,8 @@ const CellList: React.FC<CellListProps> = ({ notebook, user }) => {
   const cells = useTypedSelector(({ cells: { order, data } }) =>
     order.map((id) => data[id])
   );
-  const userEmail = useTypedSelector((state) => state.user.email);
+  // const userEmail = useTypedSelector((state) => state.user.email);
   const { fetchCells } = useActions();
-  const navigate = useNavigate();
   const errRef = useRef("");
   errRef.current = "";
   useEffect(() => {

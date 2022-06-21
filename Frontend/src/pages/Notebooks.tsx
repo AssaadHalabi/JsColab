@@ -1,17 +1,16 @@
+import { CircularProgress, Grid, Snackbar } from "@material-ui/core";
+import axios from "axios";
 import "bulmaswatch/superhero/bulmaswatch.min.css";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
 import "../css/editors/code-cell.css";
 import "../css/editors/notebooks.css";
-import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import CellList from "../components/editors/cell-list";
 import { auth } from "../firebase";
 import { fetchNotebook } from "../hooks/fetchNotebook";
 import { Notebook } from "../state/notebook";
 import { getNotebooks } from "../utils/getNotebooks";
-import { CircularProgress, Grid, Snackbar } from "@material-ui/core";
-import { Navbar } from "../components/Navbar";
 
 export const Notebooks: React.FC = () => {
   const [user, loading] = useAuthState(auth);
@@ -27,11 +26,15 @@ export const Notebooks: React.FC = () => {
     const payload = { notebook, user_email: user?.email };
     try {
       if (user && user.email === notebook.owner_email) {
-        const result = await axios.delete(`${process.env.REACT_APP_API_URL}/deleteNotebook`, {
-          data: payload,
-        });
+        const result = await axios.delete(
+          `${process.env.REACT_APP_API_URL}/deleteNotebook`,
+          {
+            data: payload,
+          }
+        );
         console.log(notebook);
-        if(result) setStatus(`Notebook ${notebook.name} has been deleted successfully`);
+        if (result)
+          setStatus(`Notebook ${notebook.name} has been deleted successfully`);
         setopen(true);
         setNotebooks(notebooks.filter((n) => n.id !== notebook_id));
       }
@@ -65,26 +68,26 @@ export const Notebooks: React.FC = () => {
 
   const renderedNotebooks = notebooks.map((notebook) => (
     <tr key={notebook.id}>
-        <td>
-          <h1 className="is-size-4"><a className="rowlink" href={`/notebook/${notebook.id}`}>{notebook.name}</a></h1>
-        </td>
-        <td>
-          <h1 className="is-size-4">
-            {new Date(notebook.created).toDateString()}
-          </h1>
-        </td>
-        <td
-          style={{ width: "0.1%", whiteSpace: "nowrap" }}
-        >
-          <button
-            onClick={(event) => {
-              if (window.confirm("Want to delete?"))
-                DeleteNotebook(notebook.id);
-            }}
-            className="delete"
-          />
-        </td>
-
+      <td>
+        <h1 className="is-size-4">
+          <a className="rowlink" href={`/notebook/${notebook.id}`}>
+            {notebook.name}
+          </a>
+        </h1>
+      </td>
+      <td>
+        <h1 className="is-size-4">
+          {new Date(notebook.created).toDateString()}
+        </h1>
+      </td>
+      <td style={{ width: "0.1%", whiteSpace: "nowrap" }}>
+        <button
+          onClick={(event) => {
+            if (window.confirm("Want to delete?")) DeleteNotebook(notebook.id);
+          }}
+          className="delete"
+        />
+      </td>
     </tr>
   ));
 
@@ -103,7 +106,7 @@ export const Notebooks: React.FC = () => {
         open={open}
         // onClose={handleClose}
         message={status}
-        key={"top" + "center"}
+        key={"top center"}
       />
       <div className="modal is-active">
         <div className="modal-background" />

@@ -1,10 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "../components/Modal";
 import { Navbar } from "../components/Navbar";
 
 export const Help = () => {
-  const [openModal, setopenModal] = useState(true);
+  const [openModal] = useState(true);
   const navigate = useNavigate();
   return (
     <>

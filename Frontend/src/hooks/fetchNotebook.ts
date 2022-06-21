@@ -1,6 +1,4 @@
-import { Notebooks } from "@prisma/client";
 import axios from "axios";
-import localforage from "localforage";
 import { Notebook } from "../state/notebook";
 
 export const fetchNotebookFromLocalStorage = (notebook_id: string) => {
