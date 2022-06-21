@@ -35,6 +35,8 @@ function default_1(app) {
             const user = await prisma_1.default.user.findFirst({
                 where: { Email: notebook.owner_email },
             });
+            console.log(`user`);
+            console.log(user);
             let payload = {
                 ...notebook,
                 cells: notebook.cells,
@@ -47,6 +49,8 @@ function default_1(app) {
                     User: { connect: { id: user.id } },
                 },
             });
+            console.log(`created`);
+            console.log(created);
         }
         catch (error) {
             console.log(error.message);
@@ -55,8 +59,11 @@ function default_1(app) {
         return response.json(created);
     });
     app.post("/api/updateNotebook", async (request, response) => {
-        let notebook = request.body;
+        let { notebook, user_email } = request.body;
         let updated;
+        if (user_email !== notebook.owner_email) {
+            return response.status(status_code_enum_1.StatusCode.ClientErrorUnauthorized);
+        }
         try {
             const user = await prisma_1.default.user.findFirst({
                 where: { Email: notebook.owner_email },
@@ -77,7 +84,7 @@ function default_1(app) {
         return response.json(updated);
     });
     app.delete("/api/deleteNotebook", async (request, response) => {
-        let { notebook, user_email } = JSON.parse(request.body);
+        let { notebook, user_email } = request.body;
         let deleted;
         if (!user_email === notebook.owner_email) {
             return response.status(401);
@@ -130,6 +137,20 @@ function default_1(app) {
         }
         console.log(notebook);
         return response.json(notebook);
+    });
+    app.get("/api/getFeaturedNotebooks", async (request, response) => {
+        const owner_email = 'asaadalhalabi@gmail.com';
+        let notebooks;
+        try {
+            notebooks = await prisma_1.default.notebook.findMany({ where: {
+                    owner_email
+                } });
+        }
+        catch (error) {
+            console.log(error.message);
+            return response.status(500);
+        }
+        return response.json(notebooks);
     });
 }
 exports.default = default_1;

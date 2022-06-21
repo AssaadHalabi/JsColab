@@ -47,6 +47,9 @@ export default function (app): void {
         const user = await prisma.user.findFirst({
           where: { Email: notebook.owner_email },
         });
+        console.log(`user`);
+        console.log(user);
+        
         let payload = {
           ...notebook,
           cells: notebook.cells,
@@ -59,6 +62,9 @@ export default function (app): void {
             User: { connect: { id: user.id } },
           },
         });
+        console.log(`created`);
+        console.log(created);
+        
       } catch (error) {
         console.log(error.message);
         return response.status(500);
@@ -69,8 +75,11 @@ export default function (app): void {
   app.post(
     "/api/updateNotebook",
     async (request: Request, response: Response) => {
-      let notebook: Notebook = request.body;
+      let {notebook, user_email} : {notebook: Notebook, user_email: string} = request.body;
       let updated;
+      if (user_email !== notebook.owner_email) {
+        return response.status(StatusCode.ClientErrorUnauthorized)
+      }
       try {
         const user = await prisma.user.findFirst({
           where: { Email: notebook.owner_email },
@@ -94,7 +103,7 @@ export default function (app): void {
   app.delete(
     "/api/deleteNotebook",
     async (request: Request, response: Response) => {
-      let {notebook, user_email} = JSON.parse(request.body);
+      let {notebook, user_email} = request.body;
       let deleted;
       if (!user_email === notebook.owner_email) {
         return response.status(401);
@@ -149,5 +158,20 @@ export default function (app): void {
     console.log(notebook);
     
     return response.json(notebook);
+  });
+  app.get("/api/getFeaturedNotebooks", async (request: Request, response: Response) => {
+    
+    const owner_email = 'asaadalhalabi@gmail.com';
+    let notebooks;
+    try {
+      notebooks = await prisma.notebook.findMany({where:{
+        owner_email
+      }});
+    } catch (error) {
+      console.log(error.message);
+      return response.status(500);
+    }
+    
+    return response.json(notebooks);
   });
 }

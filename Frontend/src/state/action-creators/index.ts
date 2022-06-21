@@ -106,6 +106,7 @@ export const saveCells = (notebook_id: string) => {
   return async (dispatch: Dispatch<Action>, getState: () => RootState) => {
     const {
       cells: { data, order },
+      user : {email}
     } = getState();
 
     let notebook: Notebook = fetchNotebookFromLocalStorage(notebook_id);
@@ -119,7 +120,7 @@ export const saveCells = (notebook_id: string) => {
     try {
       await axios.post(
         `${process.env.REACT_APP_API_URL}/updateNotebook`,
-        notebook
+        {notebook, user_email: email}
       );
       localStorage.setItem(`notebook_${notebook_id}`, JSON.stringify(notebook));
       localStorage.setItem("notebook_id", notebook_id);

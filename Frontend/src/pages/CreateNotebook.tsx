@@ -10,12 +10,13 @@ import { Notebook } from "../state/notebook";
 export const CreateNotebook: React.FC = () => {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
-  const [openModal, setopenModal] = useState(false);
+  const [openModal, setopenModal] = useState(true);
   const errRef = useRef("");
 
   const navigate = useNavigate();
 
   const SaveEmptyNotebook = async () => {
+    
     if (!user || !user.email) {
       return;
     }
@@ -41,7 +42,7 @@ export const CreateNotebook: React.FC = () => {
   useEffect(() => {
     if (loading) return;
     if (!user) navigate(`/login/${btoa(window.location.pathname.slice(1))}`);
-  }, [loading]);
+  }, [user, loading]);
 
   return (
     <>
@@ -49,15 +50,16 @@ export const CreateNotebook: React.FC = () => {
       <Modal
         openModal={openModal}
         setopenModal={setopenModal}
+        customFunction={()=>navigate(-1)}
         title={"Create JSColab Notebook"}
         footerContent={
           <>
-            <button className="button is-success" onClick={SaveEmptyNotebook}>
+            <button className="button is-primary"  onClick={e => name && SaveEmptyNotebook()}>
               Save Changes
             </button>
-            <a className="button" href={user ? `/notebooks` : `/login`}>
+            <button className="button" onClick={() => navigate('/notebooks')} >
               Cancel
-            </a>
+            </button>
           </>
         }
       >
@@ -66,6 +68,7 @@ export const CreateNotebook: React.FC = () => {
           <div className="control">
             <input
               className="input"
+              required
               type="text"
               placeholder="My website prototype.."
               value={name}

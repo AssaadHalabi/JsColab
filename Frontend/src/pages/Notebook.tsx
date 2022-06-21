@@ -12,6 +12,7 @@ export const NotebookPage: React.FC = () => {
   const { notebook_id } = useParams();
   const [notebook, setNotebook] = useState<Notebook>();
   const [open, setOpen] = useState(false);
+  const [fetched, setfetched] = useState(false);
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
   useEffect(() => {
@@ -24,7 +25,8 @@ export const NotebookPage: React.FC = () => {
       try {
         let result = await fetchNotebook(notebook_id || "");
         await setNotebook(result);
-        if (user?.email !== notebook?.owner_email) {
+        await setfetched(true);
+        if (user?.email !== result.owner_email) {
           setOpen(true);
         }
       } catch (error: any) {
@@ -32,7 +34,7 @@ export const NotebookPage: React.FC = () => {
       }
     };
     fetchNotebookAndPopulateLocalStorage();
-  }, [loading]);
+  }, [user, loading]);
 
   const handleClick = ()=>{
     setOpen(!open);
@@ -49,9 +51,10 @@ export const NotebookPage: React.FC = () => {
         message= "Viewer Mode (Edit-mode is for the Notebook owner)"
         key={'top' + 'center'}
       />
-      {notebook ? (
+      {notebook && !loading && fetched && (
         <CellList notebook={notebook} user={user} />
-      ) : (
+      )  }
+      {!notebook && !loading && fetched && (
         <div
     style={{
     fontSize: "2em",

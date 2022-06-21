@@ -13,3 +13,13 @@ export const getNotebooks = async (email: string) => {
     return notebooks;
   }
 };
+
+export const getFeaturedNotebooks = async () => {
+    let notebooks: Notebook[] = [];
+      let {
+        data,
+      } = await axios.get(`${process.env.REACT_APP_API_URL}/getFeaturedNotebooks`)
+      notebooks = data;
+   
+    return notebooks;
+};
