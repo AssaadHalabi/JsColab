@@ -1,22 +1,16 @@
-import { Dispatch } from "redux";
 import axios from "axios";
+import { Dispatch } from "redux";
+import bundle from "../../bundler";
+import {
+  fetchNotebookFromLocalStorage
+} from "../../hooks/fetchNotebook";
 import { ActionType } from "../action-types";
 import {
-  UpdateCellAction,
-  DeleteCellAction,
-  MoveCellAction,
-  InsertCellAfterAction,
-  Direction,
-  Action,
+  Action, DeleteCellAction, Direction, InsertCellAfterAction, MoveCellAction, UpdateCellAction
 } from "../actions";
 import { Cell, CellTypes } from "../cell";
-import bundle from "../../bundler";
-import { RootState } from "../reducers";
-import {
-  fetchNotebook,
-  fetchNotebookFromLocalStorage,
-} from "../../hooks/fetchNotebook";
 import { Notebook } from "../notebook";
+import { RootState } from "../reducers";
 
 export const updateCell = (uuid: string, content: string): UpdateCellAction => {
   return {
