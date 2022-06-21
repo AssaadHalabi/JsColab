@@ -1,34 +1,18 @@
 const Authentication = require("./controllers/authentication");
-import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import passport = require("passport");
 // require("./services/passport");
+import { StatusCode } from 'status-code-enum';
 import { v4 } from "uuid";
-import { Notebook } from "./notebook";
-import { StatusCode } from 'status-code-enum'
 import prisma from "./lib/prisma";
-const requireAuth = passport.authenticate("jwt", {
-  session: false,
-});
-const requireSignIn = passport.authenticate("local", {
-  session: false,
-});
+import { Notebook } from "./notebook";
+
 
 export default function (app): void {
   // Hello endpoint
   app.get("/api/", function (req, res) {
     return res.send("Express Server with JWT Authentication");
   });
-
-  // Validate user
-  app.get("/api/validate", requireAuth, function (req, res) {
-    return res.send({
-      user: req.user.email,
-    });
-  });
-
-  // Login user
-  app.post("/api/login", requireSignIn, Authentication.signin);
 
   // Register user
   app.post("/api/register", Authentication.signup);
@@ -62,8 +46,6 @@ export default function (app): void {
             User: { connect: { id: user.id } },
           },
         });
-        console.log(`created`);
-        console.log(created);
         
       } catch (error) {
         console.log(error.message);
