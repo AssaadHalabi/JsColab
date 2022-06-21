@@ -21,7 +21,6 @@ export const fetchNotebook = async (notebook_id: string) => {
   //   localStorage.getItem(`notebook_${notebook_id}`) as string
   // );
   let notebook;
-  console.log("before request");
 
   let { data } = await axios.get(`${process.env.REACT_APP_API_URL}/notebook`, {
     params: { id: notebook_id },

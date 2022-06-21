@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { encode } from "jwt-simple";
 
 import { Request, Response } from "express";
+import StatusCode from "status-code-enum";
 
 const prisma = new PrismaClient();
 
@@ -23,6 +24,8 @@ exports.signin = function (req, res) {
 
 exports.signup = async (req:Request, res:Response, next) => {
   const {email} = req.body;
+  console.log(email);
+  
   if (!email) {
     return res
       .status(422)
@@ -32,7 +35,7 @@ exports.signup = async (req:Request, res:Response, next) => {
   try {
     let user = await findUser(email);
     if (user) {
-      return res.status(422).send({ error: "Email is already in use..." });
+      return res.status(StatusCode.SuccessNoContent).send({ message: "Email is already in use..." });
     }
 
     user = await prisma.user.create({
@@ -40,6 +43,8 @@ exports.signup = async (req:Request, res:Response, next) => {
         Email: email,
       },
     });
+    console.log(user);
+    
     res.status(200);
   } catch (error) {
     return next(error);

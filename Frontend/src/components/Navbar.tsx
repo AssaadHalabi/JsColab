@@ -1,19 +1,22 @@
-import { useEffect } from "react";
+import { CircularProgress, Grid } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase";
+import { auth, logout } from "../firebase";
+import { logoutUser } from "../state/action-creators";
+import "../css/Navbar.css";
 
 export const Navbar: React.FC = () => {
   const [user, loading] = useAuthState(auth);
-
+  const [isActive, setisActive] = useState(false);
   useEffect(() => {
     if (loading) return;
-  }, []);
+  }, [user, loading]);
 
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <a className="navbar-item" href="#">
+        <a className="navbar-item" href="/">
           <img
             src={`${process.env.PUBLIC_URL}/jscolab.PNG`}
             width={112}
@@ -22,53 +25,91 @@ export const Navbar: React.FC = () => {
         </a>
         <a
           role="button"
-          className="navbar-burger"
+          className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
           aria-label="menu"
-          aria-expanded="false"
+          aria-expanded="true"
           data-target="navbarBasicExample"
+          onClick={(e) => setisActive(!isActive)}
         >
           <span aria-hidden="true" />
           <span aria-hidden="true" />
           <span aria-hidden="true" />
         </a>
       </div>
-      <div id="navbarBasicExample" className="navbar-menu">
+      <div
+        id="navbarBasicExample"
+        className={`navbar-menu ${isActive ? "is-active" : ""}`}
+      >
         <div className="navbar-start">
-          <a className="navbar-item">Home</a>
-          <a className="navbar-item">Documentation</a>
+          <a className="navbar-item" href="/">
+            Home
+          </a>
+          <a className="navbar-item" href="/help">
+            Documentation
+          </a>
+          <a className="navbar-item grow" href="/createNotebook">
+            Create A Notebook
+          </a>
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">More</a>
             <div className="navbar-dropdown">
-              <a className="navbar-item">About</a>
-              <a className="navbar-item">Jobs</a>
-              <a className="navbar-item">Contact</a>
-              <hr className="navbar-divider" />
-              <a className="navbar-item">Report an issue</a>
+              <a
+                className="navbar-item"
+                href="https://github.com/AssaadHalabi/JsColab"
+              >
+                Report an issue
+              </a>
+              <a
+                className="navbar-item"
+                href="https://assaadportfolio.herokuapp.com"
+              >
+                Contact us
+              </a>
             </div>
           </div>
         </div>
         <div className="navbar-end">
           <div className="navbar-item has-dropdown is-hoverable">
-            {user ? (
+            {loading && (
+              <Grid item>
+                <CircularProgress variant="indeterminate" />
+                Loading
+              </Grid>
+            )}
+            {user && !loading ? (
               <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link" style={{ color: "#F2D100" }}>
+                <a className="navbar-link" style={{ color: "#EFC901" }}>
                   {user.email}
                 </a>
                 <div className="navbar-dropdown">
-                  <a className="navbar-item">Logout</a>
+                  <a
+                    className="navbar-item is-size-6"
+                    style={{ color: "#EFC901" }}
+                    href="/notebooks"
+                  >
+                    My Notebooks
+                  </a>
+                  <a
+                    className="navbar-item is-size-6"
+                    onClick={(e) => {
+                      logoutUser();
+                      logout();
+                    }}
+                  >
+                    Logout
+                  </a>
                 </div>
               </div>
             ) : (
-              <div className="navbar-item">
-                <div className="buttons">
-                  <Link to={"/register"} className="button is-primary">
-                    <strong>Sign up</strong>
-                  </Link>
-                  <Link to={"/login"} className="button is-light">
-                    Log in
-                  </Link>
+              !loading && (
+                <div className="navbar-item">
+                  <div className="buttons">
+                    <Link to={"/login"} className="button is-primary">
+                      Log in
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              )
             )}
           </div>
         </div>
