@@ -1,11 +1,15 @@
 {
-  "name": "jwt-backend",
+  "name": "jscolab-backend",
   "version": "1.0.0",
   "description": "Simple server with JWT authentication",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "rm -rf dist/ && tsc --project . && node dist/server.js"
+    "compile": "tsc --project .",
+    "frontend": "cp -r ./Frontend/build ./dist/build",
+    "build": "npm run compile",
+    "start": "rm -rf dist/ && npm run build && node dist/server.js",
+    "heroku-postbuild": "cd Frontend && npm install --only=dev && npm install && npm run build && cd ../ && npm run frontend"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +36,6 @@
     "@types/bcrypt-nodejs": "^0.0.31",
     "@types/cors": "^2.8.12",
     "@types/passport": "^1.0.8",
-    "eslint": "^6.8.0",
     "nodemon": "^2.0.15",
     "prisma": "^3.15.1"
   }
