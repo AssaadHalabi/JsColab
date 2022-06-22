@@ -1,7 +1,9 @@
 import "../../css/editors/action-bar.css";
 import { useActions } from "../../hooks/use-actions";
 import { Notebook } from "../../state/notebook";
-
+import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
+import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 interface ActionBarProps {
   id: string;
   user: any;
@@ -19,9 +21,10 @@ const ActionBar: React.FC<ActionBarProps> = ({ id, user, notebook }) => {
           user.email === notebook.owner_email && moveCell(id, "up")
         }
       >
-        <span className="icon">
+        {/* <span className="icon">
           <i className="fas fa-arrow-up"></i>
-        </span>
+        </span> */}
+        <ArrowUpwardRoundedIcon fontSize="small" />
       </button>
       <button
         className="button is-primary is-small"
@@ -29,17 +32,13 @@ const ActionBar: React.FC<ActionBarProps> = ({ id, user, notebook }) => {
           user.email === notebook.owner_email && moveCell(id, "down")
         }
       >
-        <span className="icon">
-          <i className="fas fa-arrow-down"></i>
-        </span>
+        <ArrowDownwardRoundedIcon fontSize="small" />
       </button>
       <button
         className="button is-primary is-small"
         onClick={() => user.email === notebook.owner_email && deleteCell(id)}
       >
-        <span className="icon">
-          <i className="fas fa-times"></i>
-        </span>
+        <ClearRoundedIcon fontSize="small" />
       </button>
     </div>
   );
