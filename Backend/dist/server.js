@@ -12,7 +12,7 @@ app.use((0, cors_1.default)());
 app.enable("trust proxy");
 app.use(body_parser_1.default.json({ type: "*/*" }));
 (0, router_1.default)(app);
-app.listen(4000, () => {
-    console.log(`Server started on port  + ${4000}`);
+app.listen(process.env.PORT || 4000, () => {
+    console.log(`Server started on port  + ${process.env.PORT || 4000}`);
 });
 //# sourceMappingURL=server.js.map

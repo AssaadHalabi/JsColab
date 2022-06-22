@@ -2,26 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const Authentication = require("./controllers/authentication");
-const passport = require("passport");
-const uuid_1 = require("uuid");
 const status_code_enum_1 = require("status-code-enum");
+const uuid_1 = require("uuid");
 const prisma_1 = tslib_1.__importDefault(require("./lib/prisma"));
-const requireAuth = passport.authenticate("jwt", {
-    session: false,
-});
-const requireSignIn = passport.authenticate("local", {
-    session: false,
-});
 function default_1(app) {
     app.get("/api/", function (req, res) {
         return res.send("Express Server with JWT Authentication");
     });
-    app.get("/api/validate", requireAuth, function (req, res) {
-        return res.send({
-            user: req.user.email,
-        });
-    });
-    app.post("/api/login", requireSignIn, Authentication.signin);
     app.post("/api/register", Authentication.signup);
     app.post("/api/createNotebook", async (request, response) => {
         let notebook = request.body;
@@ -49,8 +36,6 @@ function default_1(app) {
                     User: { connect: { id: user.id } },
                 },
             });
-            console.log(`created`);
-            console.log(created);
         }
         catch (error) {
             console.log(error.message);
