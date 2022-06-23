@@ -36,6 +36,7 @@
     "@types/bcrypt-nodejs": "^0.0.31",
     "@types/cors": "^2.8.12",
     "@types/passport": "^1.0.8",
+    "@types/uuid": "^8.3.4",
     "nodemon": "^2.0.15",
     "prisma": "^3.15.1"
   }
