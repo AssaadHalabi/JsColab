@@ -1,71 +1,18 @@
-# Express Server JWT
+# JSColab
 
-A simple server with JWT authentication with the ability to create new user, and to authenticate the existing ones.
+https://jscolab.herokuapp.com
 
-## Requirements
+Zero setup notebook based Javascript environment for fast prototyping, inspired by Google colab, but for Javascript and React. Can import any npm library dynamically. 
 
-- Node.js
-- NPM
-- Docker or MongoDB locally
 
-## Endpoints:
+## Javscript and React Code Cells
 
-- /api/register - POST (email, password)
-- /api/login - POST (email, password)
-- /api/validate - GET (checks for authorization in HEADER which contains token)
+Fully Featured Javascript notebook code cells for fast prototyping on the go and ability to import any npm library (or css library on npm such as bulma). Code cells support cumulative code execution similar to Google Colab. Use the built-in show function to preview your work. Syntax:
 
-## Get Started:
+```show(literal | variable | JSX.Element | <YourCustomReactComponent /> )```
 
-Install all dependencies:
+### Note:
+Adding CSS is still beta, we recommend either using a css framework such as bulma css from npm or using JSX inline styles. Check the featured examples.
 
-```
-npm install
-```
-
-Configure the server:
-
-```
-touch config.js
-
-# configuration should look like this:
-module.exports = {
-  db: 'mongodb://localhost/your-db-name-here',
-  port: 3001,
-  secret: 'secret word for JWT'
-};
-```
-
-In case you dont have MongoDB installed locally, you can use docker image.
-
-Pull image and run it for the first time:
-
-```
-docker run -it -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4
-```
-
-Stop container:
-
-```
-docker stop mongodb
-```
-
-Start container:
-
-```
-docker start mongodb
-```
-
-Configure MongoDB server:
-
-- Create new database
-- Create collection called "user"
-
-Run App backend:
-
-```
-npm start
-```
-
-## Useful things
-
-If you are not familiar with MongoDB, I suggest to install "MongoDB Compass" to easily manage Mongo Database via GUI.
+## Document Code with Markdown Cells
+A good software engineer doesn't memorize. Instead, they know how to research. Add meaningful documentation to your code with Markdown cells so your research is done ahead of time! Hover over or below a code or text cell to add a new cell.
