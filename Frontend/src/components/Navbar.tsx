@@ -18,7 +18,7 @@ export const Navbar: React.FC = () => {
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
           <img
-            src={`${process.env.PUBLIC_URL}/jscolab.PNG`}
+            src={`${process.env.PUBLIC_URL}/jscolab.png`}
             width={112}
             height={28}
           />
