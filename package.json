@@ -9,7 +9,7 @@
     "frontend": "cp -r ./Frontend/build ./dist/build",
     "build": "npm run compile",
     "start": "rm -rf dist/ && npm run build && node dist/server.js",
-    "heroku-postbuild": "npm run compile && cd Frontend && npm install --only=dev --force && npm install --force && npm run build && cd ../ && npm run frontend"
+    "heroku-postbuild": "cd Frontend && npm install --only=dev --force && npm install --force && npm run build && cd ../ && npm run frontend"
   },
   "keywords": [],
   "author": "",
