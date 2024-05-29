@@ -115,7 +115,7 @@ export const saveCells = (notebook_id: string) => {
     console.log(localStorage.getItem(`notebook_${notebook_id}`));
 
     try {
-      await axios.post(`/api/updateNotebook`, { notebook, user_email: email });
+      await axios.post(`${process.env.REACT_APP_API_URL}/updateNotebook`, { notebook, user_email: email });
       localStorage.setItem(`notebook_${notebook_id}`, JSON.stringify(notebook));
       localStorage.setItem("notebook_id", notebook_id);
 

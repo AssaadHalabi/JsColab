@@ -49,7 +49,7 @@ const signInWithGoogle = async () => {
         authProvider: "google",
         email: user.email,
       });
-      await axios.post(`/api/register`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/register`, {
         email: user.email,
       });
     }

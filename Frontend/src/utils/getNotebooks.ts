@@ -4,7 +4,7 @@ import { Notebook } from "../state/notebook";
 export const getNotebooks = async (email: string) => {
   if (email) {
     let notebooks: Notebook[] = [];
-    let { data } = await axios.get(`/api/notebooks`, {
+    let { data } = await axios.get(`${process.env.REACT_APP_API_URL}/notebooks`, {
       params: { user_email: email },
     });
     notebooks = data;
@@ -15,7 +15,7 @@ export const getNotebooks = async (email: string) => {
 
 export const getFeaturedNotebooks = async () => {
   let notebooks: Notebook[] = [];
-  let { data } = await axios.get(`/api/getFeaturedNotebooks`);
+  let { data } = await axios.get(`${process.env.REACT_APP_API_URL}/getFeaturedNotebooks`);
   notebooks = data;
 
   return notebooks;

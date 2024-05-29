@@ -8,7 +8,7 @@
     "compile": "tsc --project .",
     "frontend": "cp -r ./Frontend/build ./dist/build",
     "build": "npm run compile",
-    "start": "rm -rf dist/ && npm run build && npm run frontend && node dist/server.js",
+    "start": "rm -rf dist/ && npm run build && node dist/server.js",
     "heroku-postbuild": "npm run compile && cd Frontend && npm install --only=dev --force && npm install --force && npm run build"
   },
   "keywords": [],

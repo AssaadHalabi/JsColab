@@ -44,7 +44,7 @@ export const Home = () => {
         </h1>
         <div className="columns is-multiline">
           <div className="column is-12">
-            <a href={`/notebook/b6a0116e-08ee-445d-9309-030f58d29e5c`}>
+            <a href={`/notebook/d8f05b10-8c8e-40ee-a9f9-fb70adc34ac3`}>
               <div className="card">
                 <div className="card-image">
                   <figure className="image">
@@ -59,7 +59,7 @@ export const Home = () => {
                     <div className="media-content">
                       <a
                         className="button is-primary"
-                        href={`/notebook/b6a0116e-08ee-445d-9309-030f58d29e5c`}
+                        href={`/notebook/d8f05b10-8c8e-40ee-a9f9-fb70adc34ac3`}
                       >
                         Check it out!
                       </a>
@@ -70,7 +70,7 @@ export const Home = () => {
             </a>
           </div>
           <div className="column is-12">
-            <a href={`/notebook/e33bfa12-87ab-429b-a2ab-093df9c88855`}>
+            <a href={`/notebook/730e71f9-f934-4516-be4e-b14e376f50e7`}>
               <div className="card">
                 <div className="card-image">
                   <figure className="image">
@@ -82,7 +82,7 @@ export const Home = () => {
                     <div className="media-content">
                       <a
                         className="button is-primary"
-                        href={`/notebook/e33bfa12-87ab-429b-a2ab-093df9c88855`}
+                        href={`/notebook/730e71f9-f934-4516-be4e-b14e376f50e7`}
                       >
                         Check it out!
                       </a>
@@ -93,7 +93,7 @@ export const Home = () => {
             </a>
           </div>
           <div className="column is-12">
-            <a href={`/notebook/6f8b8bba-5111-475c-b63a-1fd61286a0bd`}>
+            <a href={`/notebook/d48d0f83-6b68-4604-9dc5-bb0c2de39fa5`}>
               <div className="card">
                 <div className="card-image">
                   <figure className="image">
@@ -108,7 +108,7 @@ export const Home = () => {
                     <div className="media-content">
                       <a
                         className="button is-primary"
-                        href={`/notebook/6f8b8bba-5111-475c-b63a-1fd61286a0bd`}
+                        href={`/notebook/d48d0f83-6b68-4604-9dc5-bb0c2de39fa5`}
                       >
                         Check it out!
                       </a>

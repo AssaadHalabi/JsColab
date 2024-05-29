@@ -27,7 +27,7 @@ export const CreateNotebook: React.FC = () => {
     };
     try {
       let { data } = await axios.post(
-        `/api/createNotebook`,
+        `${process.env.REACT_APP_API_URL}/createNotebook`,
         payload
       );
       const notebook: Notebook = data;

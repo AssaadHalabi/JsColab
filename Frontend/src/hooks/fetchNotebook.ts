@@ -20,7 +20,7 @@ export const fetchNotebook = async (notebook_id: string) => {
   // );
   let notebook;
 
-  let { data } = await axios.get(`/api/notebook`, {
+  let { data } = await axios.get(`${process.env.REACT_APP_API_URL}/notebook`, {
     params: { id: notebook_id },
   });
   notebook = data;
