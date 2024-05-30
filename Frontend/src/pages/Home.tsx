@@ -98,8 +98,8 @@ export const Home = () => {
                 <div className="card-image">
                   <figure className="image">
                     <img
-                      src={`${process.env.PUBLIC_URL}/bubbleSort.PNG`}
-                      alt="bubbleSort"
+                      src={`${process.env.PUBLIC_URL}/sortingVisualizer.PNG`}
+                      alt="sortingVisualizer"
                     />
                   </figure>
                 </div>
