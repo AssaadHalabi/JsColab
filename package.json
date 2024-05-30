@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc --project .",
-    "frontend": "npm run build --prefix Frontend",
+    "install:frontend": "cd Frontend && npm install",
+    "frontend": "npm run install:frontend && npm run build --prefix Frontend",
     "build": "npm run compile && npm run frontend && cp -r ./Frontend/build ./dist/build",
     "start": "rm -rf dist/ && npm run build && node dist/server.js",
     "build:digitalocean": "npm install --include=dev && npm run build && npm ci",
