@@ -10,7 +10,7 @@
     "frontend": "npm run install:frontend && npm run build --prefix Frontend",
     "build": "npm run compile && npm run frontend && cp -r ./Frontend/build ./dist/build",
     "start": "rm -rf dist/ && npm run build && node dist/server.js",
-    "build:digitalocean": "npm install --include=dev && npm run build && npm ci",
+    "build:digitalocean": "npm install --include=dev && npm run build",
     "heroku-postbuild": "npm run compile && cd Frontend && npm install --only=dev --force && npm install --force && npm run build"
   },
   "keywords": [],
