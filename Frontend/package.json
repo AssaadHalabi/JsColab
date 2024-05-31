@@ -1,7 +1,7 @@
 {
   "name": "jscolab",
   "version": "0.1.0",
-  "homepage": "https://AssaadHalabi.github.io/jscolab",
+  "homepage": "https://assaadhalabi.github.io/jscolab",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
