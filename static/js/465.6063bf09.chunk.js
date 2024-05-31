@@ -1,0 +1,2 @@
+(this.webpackJsonpjscolab=this.webpackJsonpjscolab||[]).push([[465],{727:function(a,e){Prism.languages.yang={comment:/\/\*[\s\S]*?\*\/|\/\/.*/,string:{pattern:/"(?:[^\\"]|\\.)*"|'[^']*'/,greedy:!0},keyword:{pattern:/(^|[{};\r\n][ \t]*)[a-z_][\w.-]*/i,lookbehind:!0},namespace:{pattern:/(\s)[a-z_][\w.-]*(?=:)/i,lookbehind:!0},boolean:/\b(?:false|true)\b/,operator:/\+/,punctuation:/[{};:]/}}}]);
+//# sourceMappingURL=465.6063bf09.chunk.js.map
