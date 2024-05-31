@@ -1,6 +1,7 @@
 {
   "name": "jscolab",
   "version": "0.1.0",
+  "homepage": "https://AssaadHalabi.github.io/jscolab",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -52,13 +53,16 @@
   "devDependencies": {
     "@types/redux-persist": "^4.3.1",
     "@types/uuid": "^8.3.4",
+    "gh-pages": "^6.1.1",
     "prisma": "^3.15.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
