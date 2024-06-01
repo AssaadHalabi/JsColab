@@ -120,7 +120,7 @@ export const Home = () => {
           </div>
           <hr />
           <div className="column is-12">
-            <a href={`/notebook/b3fbc45b-70e8-476d-96a6-f5a2d1102f5a`}>
+            <a href={`/notebook/fd8e8cf7-8c05-43d0-bcd5-00d8be30b5b8`}>
               <div className="card">
                 <div className="card-image">
                   <figure className="image">
@@ -136,7 +136,7 @@ export const Home = () => {
                     <div className="media-content">
                       <a
                         className="button is-primary"
-                        href={`/notebook/b3fbc45b-70e8-476d-96a6-f5a2d1102f5a`}
+                        href={`/notebook/fd8e8cf7-8c05-43d0-bcd5-00d8be30b5b8`}
                       >
                         Check it out!
                       </a>
