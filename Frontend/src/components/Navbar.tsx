@@ -61,7 +61,7 @@ export const Navbar: React.FC = () => {
               </a>
               <a
                 className="navbar-item"
-                href="https://assaadportfolio.herokuapp.com"
+                href="https://assaadportfolio.vercel.app"
               >
                 Contact us
               </a>
