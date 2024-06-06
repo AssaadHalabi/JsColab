@@ -1,6 +1,6 @@
 # JSColab
 
-[https://jscolab-4bv43.ondigitalocean.app/](https://jscolab-4bv43.ondigitalocean.app)
+[https://jscolab-4bv43.ondigitalocean.app](https://jscolab-4bv43.ondigitalocean.app)
 
 Zero setup notebook based Javascript environment for fast prototyping, inspired by Google colab, but for Javascript and React. Can import any npm library dynamically. 
 
