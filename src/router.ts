@@ -1,8 +1,6 @@
 const Authentication = require("./controllers/authentication");
 import { Request, Response } from "express";
-import passport = require("passport");
 import path = require("path");
-// require("./services/passport");
 import { StatusCode } from "status-code-enum";
 import { v4 } from "uuid";
 import prisma from "./lib/prisma";

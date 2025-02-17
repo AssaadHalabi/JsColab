@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { encode } from "jwt-simple";
 
 import { Request, Response } from "express";
 import StatusCode from "status-code-enum";
@@ -13,14 +12,6 @@ const findUser = async (email) => {
   return user;
 };
 
-function tokenForUser(user) {
-  const timestamp = new Date().getTime();
-  return encode({ sub: user.id, iat: timestamp }, process.env.secret || "");
-}
-
-exports.signin = function (req, res) {
-  res.send({ token: tokenForUser(req.user) });
-};
 
 exports.signup = async (req:Request, res:Response, next) => {
   const {email} = req.body;

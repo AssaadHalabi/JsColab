@@ -117,12 +117,11 @@ export const Notebooks: React.FC = () => {
             />
           </header>
           <section className="modal-card-body">
-            {loadingStatus && (
-              <Grid item>
-                <CircularProgress variant="indeterminate" />
-                Loading
-              </Grid>
-            )}
+          {loadingStatus && (
+  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100px" }}>
+    <CircularProgress size={50} />
+  </div>
+)}
             {error && error !== "request failed" && (
               <div
                 style={{
