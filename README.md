@@ -5,7 +5,7 @@
   [![Live Demo](https://img.shields.io/badge/Demo-Live%20Preview-green?style=for-the-badge&logo=netlify)](https://jscolab.netlify.app/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-  <img src="Frontend/public/jscolab.png" alt="JSColab Interface Preview" width="800">
+  <a href="https://jscolab.netlify.app/" target="_blank"><img src="Frontend/public/jscolab.png" alt="JSColab Interface Preview" width="800"></a>
 </div>
 <div align="center">
     <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logo=typescript&logoColor=white&color=3178C6" alt="TypeScript" />
@@ -27,6 +27,9 @@
 - **Cumulative Execution** - Persistent runtime state between cells
 - **Cloud Sync** - Optional AWS-powered notebook persistence
   
+## [⚡ Live Website](https://jscolab.netlify.app/)
+Click the above link or on Live Preview near the logo to try it yourself!
+
 
 
 ## 📖 Usage
@@ -55,11 +58,14 @@ const shuffled = lodash.shuffle([1, 2, 3, 4]);
 show(shuffled);
 ```
 
-### `show()` function supports:
+### 🔍 Why use `show()`?  
+The `show()` function renders output **directly** inside JSColab's code cells, similar to Jupyter's `display()`.  
 
-- Primitive values: `show(42)`
-- React elements: `show(<MyComponent />)`
-- Complex objects: `show({ data: [...] })`
+#### ✅ Supports:  
+- **Numbers & Strings**: `show(42)`  
+- **Objects & Arrays**: `show({ name: "JSColab" })`  
+- **React Components**: `show(<MyComponent />)`  
+- **Charts & Visualizations**: `show(<MyChart />)`
 
 ### Markdown Cells
 ```markdown
