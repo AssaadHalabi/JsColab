@@ -66,9 +66,8 @@ export const createBundle = (cellUuid: string, input: string) => {
         cellUuid,
       },
     });
-
     const result = await bundle(input);
-
+    
     dispatch({
       type: ActionType.BUNDLE_COMPLETE,
       payload: {
@@ -115,14 +114,14 @@ export const saveCells = (notebook_id: string) => {
     console.log(localStorage.getItem(`notebook_${notebook_id}`));
 
     try {
-      await axios.post(`/api/updateNotebook`, { notebook, user_email: email });
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/updateNotebook`, { notebook, user_email: email });
       localStorage.setItem(`notebook_${notebook_id}`, JSON.stringify(notebook));
       localStorage.setItem("notebook_id", notebook_id);
 
-      console.log(`%cSaved`, "background: #222; color: #bada55");
-      console.log(
-        JSON.parse(localStorage.getItem(`notebook_${notebook_id}`) || "")
-      );
+      // console.log(`%cSaved`, "background: #222; color: #bada55");
+      // console.log(
+      //   JSON.parse(localStorage.getItem(`notebook_${notebook_id}`) || "")
+      // );
     } catch (err: any) {
       dispatch({
         type: ActionType.SAVE_CELLS_ERROR,

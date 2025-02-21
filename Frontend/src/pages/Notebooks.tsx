@@ -26,7 +26,7 @@ export const Notebooks: React.FC = () => {
     const payload = { notebook, user_email: user?.email };
     try {
       if (user && user.email === notebook.owner_email) {
-        const result = await axios.delete(`/api/deleteNotebook`, {
+        const result = await axios.delete(`${process.env.REACT_APP_API_URL}/api/deleteNotebook`, {
           data: payload,
         });
         console.log(notebook);

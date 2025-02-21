@@ -55,13 +55,13 @@ export const Navbar: React.FC = () => {
             <div className="navbar-dropdown">
               <a
                 className="navbar-item"
-                href="https://github.com/AssaadHalabi/JsColab"
+                href="https://github.com/AssaadHalabi/JsColab/issues"
               >
                 Report an issue
               </a>
               <a
                 className="navbar-item"
-                href="https://assaadportfolio.herokuapp.com"
+                href="https://assaadportfolio.vercel.app/"
               >
                 Contact us
               </a>

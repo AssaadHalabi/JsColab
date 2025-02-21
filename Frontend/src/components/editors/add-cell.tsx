@@ -1,6 +1,7 @@
 import '../../css/editors/add-cell.css';
 import { useActions } from '../../hooks/use-actions';
 import { Notebook } from '../../state/notebook';
+import Add from "@mui/icons-material/Add";
 
 interface AddCellProps {
   previousCellId: string | null;
@@ -21,7 +22,7 @@ const AddCell: React.FC<AddCellProps> = ({ forceVisible, previousCellId, user, n
           onClick={() => user.email === notebook.owner_email && insertCellAfter(previousCellId, 'code')}
         >
           <span className="icon is-small">
-            <i className="fas fa-plus" />
+            <Add />
           </span>
           <span>Code</span>
         </button>
@@ -30,7 +31,7 @@ const AddCell: React.FC<AddCellProps> = ({ forceVisible, previousCellId, user, n
           onClick={() => user.email === notebook.owner_email && insertCellAfter(previousCellId, 'text')}
         >
           <span className="icon is-small">
-            <i className="fas fa-plus" />
+            <Add />
           </span>
           <span>Text</span>
         </button>

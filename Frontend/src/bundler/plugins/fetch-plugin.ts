@@ -50,12 +50,15 @@ export const fetchPlugin = (inputCode: string) => {
       });
 
       build.onLoad({ filter: /.*/ }, async (args: any) => {
-        const { data, request } = await axios.get(args.path);
+        let path = args.path;
+        if(args.path.includes("react.production.js")) path = path.replace(".production.js", ".production.min.js")
+        if(args.path.includes("react-dom.production.js")) path = path.replace(".production.js", ".production.min.js")
+        const { data, request } = await axios.get(path);
 
         const result: esbuild.OnLoadResult = {
           loader: 'jsx',
           contents: data,
-          resolveDir: new URL('./', request.responseURL).pathname,
+          resolveDir: new URL('./', request.responseURL).pathname
         };
         await fileCache.setItem(args.path, result);
 

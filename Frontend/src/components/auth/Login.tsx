@@ -5,6 +5,7 @@ import "../../css/auth/Login.css";
 import { auth, signInWithGoogle } from "../../firebase";
 import { useActions } from "../../hooks/use-actions";
 import { Navbar } from "../Navbar";
+import axios from "axios";
 function Login() {
   // const userEmail = useTypedSelector((state) => state.user.email);
   const { referrer } = useParams();
@@ -19,6 +20,15 @@ function Login() {
     if (user) {
       console.log("success");
       const fn = async () => {
+        let { data: { exists } } = await axios.get(`${process.env.REACT_APP_API_URL}/api/users`, {
+          params: { email: user.email },
+        });
+        console.log(`login middle, user exists: ${exists}`);
+        if (!exists)
+          await axios.post(`${process.env.REACT_APP_API_URL}/api/register`, {
+            email: user.email,
+          });
+        console.log(`login created new user ${user.email} end`);
         await loginUser(user.email as string);
         console.log(`referrer: ${referrer}`);
         if (referrer) navigate(`/${atob(referrer)}`);
@@ -29,6 +39,9 @@ function Login() {
       } catch (error: any) {
         console.log(error.message);
       }
+    }else{
+      console.log("wtf");
+      
     }
   }, [user, loading]);
   return (
@@ -52,6 +65,7 @@ function Login() {
               <button
                 className="login__btn button is-primary"
                 onClick={async () => {
+                  console.log("signInWithGoogle started");
                   await signInWithGoogle();
                 }}
               >

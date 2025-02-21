@@ -14,6 +14,7 @@ export default function (app): void {
 
   // Register user
   app.post("/api/register", Authentication.signup);
+  app.get("/api/users", Authentication.getUser);
   app.post(
     "/api/createNotebook",
     async (request: Request, response: Response) => {
