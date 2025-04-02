@@ -24,8 +24,8 @@ export const NotebookPage: React.FC = () => {
     const fetchNotebookAndPopulateLocalStorage = async () => {
       try {
         let result = await fetchNotebook(notebook_id || "");
-        await setNotebook(result);
-        await setfetched(true);
+        setNotebook(result);
+        setfetched(true);
         if (user?.email !== result.owner_email) {
           setOpen(true);
         }

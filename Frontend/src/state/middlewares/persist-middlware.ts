@@ -25,13 +25,13 @@ export const persistMiddleware = ({
           ActionType.DELETE_CELL,
         ].includes(action.type)
       ) {
-        const { user:{email} } = getState();
-  let notebook_id = localStorage.getItem("notebook_id") || "";
-  console.log(email);
-  
-  const isOwner =
-    email === fetchNotebookFromLocalStorage(notebook_id).owner_email;
-  console.log(`persistMiddleware running ${email && isOwner}`);
+        const { user: { email } } = getState();
+        let notebook_id = localStorage.getItem("notebook_id") || "";
+        console.log(email);
+
+        const isOwner =
+          email === fetchNotebookFromLocalStorage(notebook_id).owner_email;
+        console.log(`persistMiddleware running ${email && isOwner}`);
         if (timer) {
           clearTimeout(timer);
         }

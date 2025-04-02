@@ -15,6 +15,9 @@ const CellList: React.FC<CellListProps> = ({ notebook, user }) => {
   const cells = useTypedSelector(({ cells: { order, data } }) =>
     order.map((id) => data[id])
   );
+//   const order = useTypedSelector(({ cells: { order, data } }) =>
+//   order
+// );
   // const userEmail = useTypedSelector((state) => state.user.email);
   const { fetchCells } = useActions();
   const errRef = useRef("");
@@ -24,14 +27,11 @@ const CellList: React.FC<CellListProps> = ({ notebook, user }) => {
       errRef.current = "Notebook not found";
     }
     try {
-      fetchCells(notebook.id);
-      console.log('after fetch cells');
-      console.log(`cells ${JSON.stringify(cells)}`);
-      
+      fetchCells(notebook.id);     
     } catch (error: any) {
       errRef.current = error.message;
     }
-  }, []);
+  }, [notebook, fetchCells]);
 
   const renderedCells = cells.map((cell) => (
     <Fragment key={cell.uuid}>

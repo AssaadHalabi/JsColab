@@ -20,13 +20,13 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBYDBp0jhE80oLmDIpw6l6R5R3yJOoMkTA",
-  authDomain: "auth-try-930ef.firebaseapp.com",
-  databaseURL: "https://auth-try-930ef.firebaseio.com",
-  projectId: "auth-try-930ef",
-  storageBucket: "auth-try-930ef.appspot.com",
-  messagingSenderId: "229570546703",
-  appId: "1:229570546703:web:dc7c8f6cd2d526fd1be77a",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DB_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MSG_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
@@ -80,8 +80,8 @@ const sendPasswordReset = async (email) => {
   }
 };
 
-const logout = () => {
-  signOut(auth);
+const logout = async () => {
+  await signOut(auth);
 };
 
 export {

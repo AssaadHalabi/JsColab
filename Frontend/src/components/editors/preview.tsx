@@ -1,5 +1,5 @@
 import '../../css/editors/preview.css';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 interface PreviewProps {
   code: string;
@@ -38,22 +38,40 @@ const html = `
   `;
 
 const Preview: React.FC<PreviewProps> = ({ code, err }) => {
-  const iframe = useRef<any>();
+  const iframe = useRef<HTMLIFrameElement>(null);
+  const [iframeKey, setIframeKey] = useState(0);
 
+  // Force re-mounting the iframe when the code prop changes
   useEffect(() => {
-    iframe.current.srcdoc = html;
-    setTimeout(() => {
-      iframe.current && iframe.current.contentWindow.postMessage(code, '*');
-    }, 75);
+    setIframeKey(prevKey => prevKey + 1);
+  }, [code]);
+  // When the iframe loads, immediately post the code message.
+  const handleIframeLoad = () => {
+    if (iframe.current && iframe.current.contentWindow) {
+      iframe.current.contentWindow.postMessage(code, '*');
+
+      // setTimeout(() => {
+      //   iframe.current && iframe.current.contentWindow && iframe.current.contentWindow.postMessage(code, '*');
+      // }, 125)
+    }
+  };
+
+  // Reload the iframe whenever code changes to clear previous errors.
+  useEffect(() => {
+    if (iframe.current) {
+      iframe.current.srcdoc = html;
+    }
   }, [code]);
 
   return (
     <div className="preview-wrapper">
       <iframe
+        key={iframeKey}
         title="preview"
         ref={iframe}
         sandbox="allow-scripts"
         srcDoc={html}
+        onLoad={handleIframeLoad}
       />
       {err && <div className="preview-error">{err}</div>}
     </div>

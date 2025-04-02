@@ -25,9 +25,15 @@ function Login() {
         });
         console.log(`login middle, user exists: ${exists}`);
         if (!exists)
-          await axios.post(`${process.env.REACT_APP_API_URL}/api/register`, {
-            email: user.email,
-          });
+          try {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/register`, {
+              email: user.email,
+            });
+            console.log(res);
+            
+          } catch (error:any) {
+            console.error(error)
+          }
         console.log(`login created new user ${user.email} end`);
         await loginUser(user.email as string);
         console.log(`referrer: ${referrer}`);
@@ -39,9 +45,9 @@ function Login() {
       } catch (error: any) {
         console.log(error.message);
       }
-    }else{
-      console.log("wtf");
-      
+    } else if(error !== undefined) {
+      console.log("error");
+      console.log(JSON.stringify(error));
     }
   }, [user, loading]);
   return (

@@ -1,5 +1,5 @@
 import '../../css/editors/code-cell.css';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import CodeEditor from './code-editor';
 import Preview from './preview';
 import Resizable from './resizable';
@@ -12,21 +12,27 @@ import { Notebook } from '../../state/notebook';
 interface CodeCellProps {
   cell: Cell;
   user: any;
-  notebook:Notebook;
+  notebook: Notebook;
 }
 
 const CodeCell: React.FC<CodeCellProps> = ({ cell, user, notebook }) => {
   const { updateCell, createBundle } = useActions();
   const bundle = useTypedSelector((state) => state.bundles[cell.uuid]);
   const cumulativeCode = useCumulativeCode(cell.uuid);
-
+//   const order = useTypedSelector(({ cells: { order, data } }) =>
+//   order
+// );
   useEffect(() => {
     if (!bundle) {
+      console.log("if (!bundle) initial createBundle");
+
       createBundle(cell.uuid, cumulativeCode);
       return;
     }
+    console.log(`CodeCell rendered`);
 
     const timer = setTimeout(async () => {
+      console.log(`CodeCell 750ms createBundle triggered`);
       createBundle(cell.uuid, cumulativeCode);
     }, 750);
 
@@ -52,7 +58,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell, user, notebook }) => {
           />
         </Resizable>
         <div className="progress-wrapper">
-          {!bundle || bundle.loading ? (
+          {!bundle || !bundle.code || bundle.loading ? (
             <div className="progress-cover">
               <progress className="progress is-small is-primary" max="100">
                 Loading

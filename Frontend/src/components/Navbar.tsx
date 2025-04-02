@@ -91,9 +91,9 @@ export const Navbar: React.FC = () => {
                   </a>
                   <a
                     className="navbar-item is-size-6"
-                    onClick={(e) => {
+                    onClick={async (e) => {
                       logoutUser();
-                      logout();
+                      await logout();
                     }}
                   >
                     Logout

@@ -81,11 +81,10 @@ export const createBundle = (cellUuid: string, input: string) => {
 export const fetchCells = (notebook_id: string) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionType.FETCH_CELLS });
-    console.log("fetch");
 
     try {
       let notebook: Notebook = fetchNotebookFromLocalStorage(notebook_id);
-      dispatch({
+    dispatch({
         type: ActionType.FETCH_CELLS_COMPLETE,
         payload: notebook.cells,
       });

@@ -29,7 +29,6 @@ export const Notebooks: React.FC = () => {
         const result = await axios.delete(`${process.env.REACT_APP_API_URL}/api/deleteNotebook`, {
           data: payload,
         });
-        console.log(notebook);
         if (result)
           setStatus(`Notebook ${notebook.name} has been deleted successfully`);
         setopen(true);
